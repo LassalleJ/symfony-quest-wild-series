@@ -1,0 +1,11 @@
+@import "~bootstrap/scss/bootstrap";
+$bg-primary:#FFEAD7;
+$primary-darken:#4C3825;
+.navbar {
+  background-color: $bg-primary;
+}
+.btn {
+  border:1px solid $primary-darken;
+}
+
+
