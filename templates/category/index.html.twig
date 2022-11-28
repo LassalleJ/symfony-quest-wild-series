@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% for category in categories %}
+        <h1>{{ category.name }}</h1>
+        <a href="{{ path("category_show", { categoryName: category.name }) }}">Voir la fiche</a>
+    {% endfor %}
+
+    <a href="{{ path('app_index') }}">
+        Retour à l'accueil
+    </a>
+{% endblock %}

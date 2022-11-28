@@ -4,5 +4,17 @@ Wild Series
 {% endblock %}
 
 {% block body %}
-<h1>{{ website }} index</h1>
+<h1>Les séries de la table program:</h1>
+    {% for program in programs %}
+        <div>
+            <h2>{{ loop.index }} {{ program.title }}, une série {{ program.category.name }}</h2>
+            <p>{{ program.synopsis }}</p>
+            <a href="{{ path("program_show", { id: program.id }) }}">Voir la fiche</a>
+        </div>
+        {% else %}
+        <h2>Aucune série trouvée</h2>
+    {% endfor %}
+    <a href="{{ path('app_index') }}">
+        Retour à l'accueil
+    </a>
 {% endblock %}
