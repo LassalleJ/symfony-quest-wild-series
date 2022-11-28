@@ -4,7 +4,11 @@
     <h2>La {{ season.number }}ème saison de {{ program.title }} sortie en {{ season.year }}</h2>
     <ul>
         {% for episode in episodes %}
-        <li>{{ episode.number }} - {{ episode.title }}</li>
+            <li><a href="/program/{{ program.id }}/season/{{season.id}}/episode/{{episode.id}}">{{ episode.number }}</a></li>
+            <li>{{ episode.title }}</li>
+            <p>{{ episode.synopsis }}</p>
+            {% else %}
+            FKEJFZOEHFEHZU
         {% endfor %}
     </ul>
 
