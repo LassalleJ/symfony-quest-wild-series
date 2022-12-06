@@ -1,13 +1,18 @@
-<nav class="navbar navbar-light sticky-top">
+<nav class="navbar navbar-light sticky-top bg-primary-color">
     <div class="container-fluid">
         <a href="/" class="nav-link active">Accueil</a>
         <a href="/category/">Category</a>
         <a href="/program/">Programs</a>
+{#        {{ form_start(form) }}#}
+{#        {{ form_widget(form) }}#}
+{#        <button class="btn">{{ button_label|default('Save') }}</button>#}
+{#        {{ form_end(form) }}#}
+        <form action="" class="d-flex">
 
 
-        <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn" type="submit">Search</button>
+{{ render(controller(
+    'App\\Controller\\SearchController::searchBar'
+)) }}
         </form>
     </div>
 </nav>
