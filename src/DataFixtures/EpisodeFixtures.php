@@ -30,7 +30,7 @@ class EpisodeFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return [
-            ProgramFixtures::class,
+            SeasonFixtures::class,
         ];
     }
 

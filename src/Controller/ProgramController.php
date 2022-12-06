@@ -45,7 +45,6 @@ class ProgramController extends AbstractController
     #[Route('/{id<\d+>}', name: 'show', methods: ['GET'])]
     public function show(Program $program)
     {
-//        $program = $programRepository->findOneBy(['id' => $id]);
         $seasons = $program->getSeasons();
 
         if (!$program) {
