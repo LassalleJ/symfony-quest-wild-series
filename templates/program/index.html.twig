@@ -9,7 +9,7 @@ Wild Series
         <div>
             <h2>{{ loop.index }} {{ program.title }}, une série {{ program.category.name }}</h2>
             <p>{{ program.synopsis }}</p>
-            <a href="{{ path("program_show", { id: program.id }) }}">Voir la fiche</a>
+            <a href="{{ path("program_show", { slug: program.slug }) }}">Voir la fiche</a>
         </div>
         {% else %}
         <h2>Aucune série trouvée</h2>

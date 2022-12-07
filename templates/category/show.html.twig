@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     {% for program in programs %}
-        <h1>{{ program.id }} - <a href="{{ path("program_show", { id: program.id }) }}">{{ program.title }}</a></h1>
+        <h1>{{ program.id }} - <a href="{{ path("program_show", { slug: program.slug }) }}">{{ program.title }}</a></h1>
         <p>{{ program.synopsis }}</p>
         {% else %}
         <h2>Aucune série trouvée pour cette catégorie</h2>
