@@ -13,6 +13,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -28,16 +30,23 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name:'new')]
-    public function new(Request $request, ProgramRepository $programRepository, SluggerInterface $slugger)
+    #[Route('/new', name: 'new')]
+    public function new(Request $request, ProgramRepository $programRepository, SluggerInterface $slugger, MailerInterface $mailer)
     {
         $program = new Program();
         $form = $this->createForm(ProgramType::class, $program);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $slug=$slugger->slug($program->getTitle());
+            $slug = $slugger->slug($program->getTitle());
             $program->setSlug($slug);
             $programRepository->save($program, true);
+            $email = (new Email())
+                ->from($this->getParameter('mailer_from'))
+                ->to('jordanesp@hotmail.com')
+                ->subject('Une nouvelle série vient d\'être publiée !')
+                ->html($this->renderView('program/newProgramEmail.html.twig', ['program' => $program]));
+
+            $mailer->send($email);
             return $this->redirectToRoute('program_index');
 
         }
@@ -46,6 +55,7 @@ class ProgramController extends AbstractController
         ]);
 
     }
+
     #[Route('/{slug}', name: 'show', methods: ['GET'])]
     public function show(Program $program, ProgramDuration $programDuration)
     {
@@ -59,7 +69,7 @@ class ProgramController extends AbstractController
         return $this->render('program/show.html.twig', [
             'program' => $program,
             'seasons' => $seasons,
-            'programDuration'=>$programDuration->calculate($program),
+            'programDuration' => $programDuration->calculate($program),
         ]);
     }
 
