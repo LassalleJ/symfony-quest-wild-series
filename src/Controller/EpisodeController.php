@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Episode;
+use App\Form\CommentType;
 use App\Form\EpisodeType;
+use App\Form\ProgramType;
 use App\Repository\EpisodeRepository;
+use App\Repository\ProgramRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,7 +50,7 @@ class EpisodeController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'show', methods: ['GET'])]
-    public function show(Episode $episode): Response
+    public function show(Episode $episode,Request $request, EpisodeRepository $episodeRepository): Response
     {
         return $this->render('episode/show.html.twig', [
             'episode' => $episode,

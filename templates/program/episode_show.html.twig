@@ -1,8 +1,20 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<h1>{{ program.title }}</h1>
+    <h1>{{ program.title }}</h1>
     <h2>{{ season.number }}</h2>
     {{ episode.number }} - {{ episode.title }}
     {{ episode.synopsis }}
+    {% if app.user %}
+        {{ form(form) }}
+    {% endif %}
+    <table>
+        {% for comment in comments|sort((a,b)=>b.id <=> a.id) %}
+            <tr>
+                <td>{{ comment.comment }}</td>
+                <td>{{ comment.rate }}</td>
+                <td>{{ comment.author.email }}</td>
+            </tr>
+        {% endfor %}
+    </table>
 
 {% endblock %}
