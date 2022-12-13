@@ -13,6 +13,11 @@
                 <td>{{ comment.comment }}</td>
                 <td>{{ comment.rate }}</td>
                 <td>{{ comment.author.email }}</td>
+                {% if app.user %}
+                {% if comment.author.email == app.user.email or is_granted("ROLE_ADMIN") %}
+                    <td><a href="{{ path("comment_delete", { id: comment.id }) }}">Supprimer</a></td>
+                {% endif %}
+                {% endif %}
             </tr>
         {% endfor %}
     </table>

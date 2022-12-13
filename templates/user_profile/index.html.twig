@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+ {% block body %}
+<h1>{{ user.email }}</h1>
+  <h1>My programs</h1>
+  <ul>
+   {% for program in user.programs %}
+   <li>{{ program.title }}</li>
+   {% endfor %}
+  </ul>
+{% endblock %}
