@@ -9,6 +9,7 @@ use App\Entity\Season;
 use App\Entity\User;
 use App\Form\CommentType;
 use App\Form\ProgramType;
+use App\Form\SearchProgramType;
 use App\Repository\CommentRepository;
 use App\Repository\ProgramRepository;
 use App\Repository\SeasonRepository;
@@ -27,11 +28,19 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class ProgramController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(ProgramRepository $programRepository): Response
+    public function index(ProgramRepository $programRepository, Request $request): Response
     {
-        $programs = $programRepository->findAll();
-        return $this->render('program/index.html.twig', [
+        $form=$this->createForm(SearchProgramType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $search=$form->getData()['search'];
+            $programs=$programRepository->findLikeTitleOrLastnameActor($search);
+        } else {
+            $programs=$programRepository->findAll();
+        }
+        return $this->renderForm('program/index.html.twig', [
             'programs' => $programs,
+            'form'=>$form
         ]);
     }
 

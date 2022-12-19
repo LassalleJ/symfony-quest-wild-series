@@ -4,6 +4,10 @@ Wild Series
 {% endblock %}
 
 {% block body %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button>Search</button>
+    {{ form_end(form) }}
 <h1>Les séries de la table program:</h1>
     {% for program in programs %}
         <div>
